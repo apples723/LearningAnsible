@@ -1,0 +1,21 @@
+---
+- hosts: all
+  remote_user: ubuntu
+  become: true
+  become_user: root
+  become_method: sudo
+  tasks:
+  - name: set hostname
+    hostname:
+      name: "{{ HOSTNAME }}"
+  - name: install apache
+    apt: 
+      name: apache2
+      state: present
+      update_cache: yes
+  - name: create file etc/enviornment
+    template:
+      src: enviornment.j2
+      dest: /etc/enviornment
+
+  
